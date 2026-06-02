@@ -47,6 +47,25 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+/* TÍTULO */
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.page-title-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-sm);
+  letter-spacing: 0;
+}
+
 /* NAVEGACIÓN */
 .nav {
   display: flex;
@@ -437,6 +456,11 @@ body {
     padding: var(--spacing-md);
   }
 
+  .page-title {
+    font-size: 24px;
+    margin-bottom: var(--spacing-md);
+  }
+
   .kpi-row {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-sm);
@@ -486,6 +510,10 @@ body {
 }
 
 @media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+  }
+
   .kpi-row {
     grid-template-columns: 1fr;
   }
@@ -506,6 +534,11 @@ body {
 </style>
 
 <div class="dashboard-wrapper">
+  <h1 class="page-title">
+    Comparativo Digital-ED
+    <div class="page-title-subtitle">Materias por área temática y alumnos por campus (AD2025 vs AD2026)</div>
+  </h1>
+  
   <div style="padding: 0">
     <div class="nav">
       <button class="tab active" onclick="show('all',this)">Global</button>
