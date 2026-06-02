@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas Widgets - Índice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .pages-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .page-link {
+            display: block;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .page-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .page-link.secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .page-link.secondary:hover {
+            box-shadow: 0 15px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .page-link.tertiary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .page-link.tertiary:hover {
+            box-shadow: 0 15px 30px rgba(79, 172, 254, 0.4);
+        }
+
+        .description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Pruebas Widgets</h1>
+        <p class="subtitle">Selecciona una página para explorar</p>
+        
+        <div class="pages-list">
+            <a href="pagina1.html" class="page-link">
+                Página 1
+                <div class="description">Primera página de prueba</div>
+            </a>
+            
+            <a href="pagina2.html" class="page-link secondary">
+                Página 2
+                <div class="description">Segunda página de prueba</div>
+            </a>
+            
+            <a href="pagina3.html" class="page-link tertiary">
+                Página 3
+                <div class="description">Tercera página de prueba</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
