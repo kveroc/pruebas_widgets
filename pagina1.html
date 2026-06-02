@@ -1,4 +1,3 @@
-
 <h2 class="sr-only"> </h2>
 <style>
 :root {
@@ -45,6 +44,38 @@ body {
   background: var(--color-background-primary);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
+}
+
+/* HEADER CON BOTÓN */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
+.back-button {
+  padding: var(--spacing-sm) 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 20px;
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(83, 74, 183, 0.05);
+}
+
+.back-button:active {
+  transform: scale(0.98);
 }
 
 /* TÍTULO */
@@ -456,6 +487,11 @@ body {
     padding: var(--spacing-md);
   }
 
+  .page-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
   .page-title {
     font-size: 24px;
     margin-bottom: var(--spacing-md);
@@ -530,14 +566,24 @@ body {
   .count-pill {
     font-size: 10px;
   }
+
+  .back-button {
+    width: 100%;
+    text-align: center;
+  }
 }
 </style>
 
 <div class="dashboard-wrapper">
-  <h1 class="page-title">
-    Comparativo Digital-ED
-    <div class="page-title-subtitle">Materias por área temática y alumnos por campus (AD2025 vs AD2026)</div>
-  </h1>
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">
+        Comparativo Digital-ED
+        <div class="page-title-subtitle">Materias por área temática y alumnos por campus (AD2025 vs AD2026)</div>
+      </h1>
+    </div>
+    <button class="back-button" onclick="window.location.href='index.html'">← Regresar al índice</button>
+  </div>
   
   <div style="padding: 0">
     <div class="nav">
@@ -567,51 +613,51 @@ function ac(a){return AREA_CLASS[a]||'am';}
 const DATA={
   all:{badge:'Global — todas las escuelas',badgeClass:'b-all',kpi:{mat19:40,matP26:30,tot25:5094,tot26:1056},
     areas:[
-      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías, riesgos y transiciones'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'}]},
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'P1012',n:'Pensamiento estadístico'}],m26:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'P1012',n:'Pensamiento estadístico'}]},
-      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'}],m26:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA',nuevo:true},{c:'MA1042',n:'Inteligencia artificial y datos',nuevo:true},{c:'EC1023',n:'Economía y finanzas personales aplicadas',nuevo:true}]},
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'},{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'}],m26:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'P1019',n:'Innovación y valor público'}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}]},
+      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemología del arte'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'H1058',n:'Mercados y precios'}],m26:[{c:'D1038',n:'Derecho y legalidad digital'},{c:'EC1023',n:'Economía y finanzas personales aplicadas'},{c:'P1021',n:'Transformación digital en los negocios'}]},
+      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'}],m26:[{c:'BI1001',n:'Biodiversidad y conservación'},{c:'BI1003',n:'Biología molecular y genética'},{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA'},{c:'EH1030',n:'Verdad e infodemia en redes y algoritmos'},{c:'H1072',n:'Ciencia de datos y analítica cultural'},{c:'MA1044',n:'Modelos de optimización para la sostenibilidad'}]},
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'},{c:'H1063',n:'Argumentación, debate y el arte de persuadir'}],m26:[{c:'DL1028',n:'Laboratorio de innovación e inteligencia competitiva'},{c:'EM1012',n:'Emprendimiento, innovación y creación de valor'},{c:'P1019',n:'Innovación y valor público'}]},
+      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1031',n:'Ética de la inteligencia artificial'}]}
     ],
-    campus:[{c:'AGS',v25:37,v26:12},{c:'CCM',v25:409,v26:70},{c:'CDJ',v25:6,v26:4},{c:'CEM',v25:201,v26:71},{c:'CHH',v25:71,v26:34},{c:'COB',v25:6,v26:16},{c:'CSF',v25:327,v26:40},{c:'GDA',v25:617,v26:98},{c:'HER',v25:28,v26:0},{c:'HGO',v25:55,v26:12},{c:'LAG',v25:7,v26:0},{c:'MEX',v25:3,v26:0},{c:'MTY',v25:1088,v26:644},{c:'PUE',v25:40,v26:0},{c:'SIN',v25:49,v26:31},{c:'SLP',v25:29,v26:12},{c:'MRL',v25:27,v26:12}],
+    campus:[{c:'AGS',v25:37,v26:12},{c:'CCM',v25:409,v26:70},{c:'CDJ',v25:6,v26:4},{c:'CEM',v25:201,v26:71},{c:'CHH',v25:71,v26:34},{c:'COB',v25:6,v26:16},{c:'CSF',v25:327,v26:40},{c:'GDA',v25:617,v26:61},{c:'HER',v25:65,v26:26},{c:'HGO',v25:90,v26:24},{c:'LAG',v25:154,v26:28},{c:'LEO',v25:88,v26:24},{c:'MOR',v25:43,v26:2},{c:'MRL',v25:5,v26:12},{c:'MTY',v25:1902,v26:399},{c:'PUE',v25:238,v26:75},{c:'QRO',v25:416,v26:54},{c:'SAL',v25:99,v26:30},{c:'SIN',v25:17,v26:16},{c:'SLP',v25:51,v26:14},{c:'TAM',v25:60,v26:14},{c:'TOL',v25:192,v26:30}],
     nota:'El catálogo global pasa de 40 a 30 materias (−25%). Matemáticas y ciencias es la única área que crece (4→6). Las demás reducen. Alumnos Digital-ED caen −79% a nivel institución.'
   },
   eaad:{badge:'EAAD',badgeClass:'b-eaad',kpi:{mat19:3,matP26:4,tot25:28,tot26:0},
     areas:[
-      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemología de las artes'}]},
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'DL1023',n:'Innovación y procesos creativos'}],m26:[{c:'A1013',n:'Negocios en industrias creativas y culturales'},{c:'DL1028',n:'Laboratorio de innovación y emprendimiento'}]},
+      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemología del arte'}]},
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'DL1023',n:'Innovación y procesos creativos'}],m26:[{c:'A1013',n:'Negocios en industrias creativas y culturales'},{c:'DL1028',n:'Laboratorio de innovación e inteligencia competitiva'}]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'A1010',n:'Dibujo anatómico y natural',nuevo:true}]}
     ],
-    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:2,v26:0},{c:'CEM',v25:2,v26:0},{c:'CHH',v25:1,v26:0},{c:'CSF',v25:3,v26:0},{c:'GDA',v25:1,v26:0},{c:'HER',v25:1,v26:0},{c:'HGO',v25:1,v26:0},{c:'LAG',v25:1,v26:0},{c:'MEX',v25:1,v26:0},{c:'MTY',v25:13,v26:0},{c:'SLP',v25:1,v26:0}],
+    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:2,v26:0},{c:'CEM',v25:2,v26:0},{c:'CHH',v25:1,v26:0},{c:'CSF',v25:3,v26:0},{c:'GDA',v25:1,v26:0},{c:'HER',v25:1,v26:0},{c:'HGO',v25:1,v26:0},{c:'LAG',v25:3,v26:0},{c:'LEO',v25:2,v26:0},{c:'MTY',v25:4,v26:0},{c:'PUE',v25:1,v26:0},{c:'QRO',v25:1,v26:0}],
     nota:'EAAD gana una materia y una nueva área (Matemáticas) pero pierde toda su oferta Digital-ED en AD2026. Liderazgo dobla materias (1→2).'
   },
   ecsg:{badge:'ECSG',badgeClass:'b-ecsg',kpi:{mat19:11,matP26:9,tot25:1388,tot26:570},
     areas:[
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'P1012',n:'Pensamiento estadístico'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'}],m26:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'P1012',n:'Pensamiento estadístico'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'P1012',n:'Oratoria política y persuasión'},{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[{c:'D1038',n:'Derecho y legalidad digital'},{c:'EC1023',n:'Economía y finanzas personales aplicadas'},{c:'P1021',n:'Transformación digital en los negocios'}]},
       {name:'Humanidades y bellas artes',m19:[{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[]},
       {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'}],m26:[{c:'P1019',n:'Innovación y valor público'}]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'EC1023',n:'Economía y finanzas personales aplicadas',nuevo:true}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'},{c:'P1014',n:'Ciudadanía y tecnología'}],m26:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}]}
+      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'},{c:'P1014',n:'Ciudadanía y tecnología'}],m26:[]}
     ],
-    campus:[{c:'AGS',v25:6,v26:12},{c:'CCM',v25:121,v26:40},{c:'CDJ',v25:1,v26:4},{c:'CEM',v25:104,v26:36},{c:'CHH',v25:31,v26:20},{c:'COB',v25:0,v26:16},{c:'CSF',v25:114,v26:30},{c:'GDA',v25:196,v26:182},{c:'HGO',v25:12,v26:24},{c:'MTY',v25:432,v26:144},{c:'SIN',v25:8,v26:31},{c:'SLP',v25:13,v26:28},{c:'MRL',v25:2,v26:3}],
-    nota:'ECSG mantiene 4 áreas temáticas pero reduce 11→9 materias. Humanidades desaparece (RI1017 sin continuidad). Gana Matemáticas (nueva área). AGS, HGO, SIN, SLP, COB y MRL suben o aparecen.'
+    campus:[{c:'AGS',v25:6,v26:12},{c:'CCM',v25:121,v26:40},{c:'CDJ',v25:1,v26:4},{c:'CEM',v25:104,v26:36},{c:'CHH',v25:31,v26:20},{c:'COB',v25:0,v26:16},{c:'CSF',v25:114,v26:30},{c:'GDA',v25:196,v26:17},{c:'HER',v25:6,v26:0},{c:'HGO',v25:23,v26:12},{c:'LAG',v25:28,v26:0},{c:'LEO',v25:19,v26:0},{c:'MOR',v25:0,v26:0},{c:'MRL',v25:0,v26:8},{c:'MTY',v25:358,v26:270},{c:'PUE',v25:121,v26:75},{c:'QRO',v25:160,v26:20},{c:'SAL',v25:38,v26:10},{c:'SIN',v25:6,v26:0},{c:'SLP',v25:7,v26:14},{c:'TAM',v25:39,v26:6},{c:'TOL',v25:70,v26:0}],
+    nota:'ECSG mantiene 4 áreas temáticas pero reduce 11→9 materias. Humanidades desaparece (RI1017 sin continuidad). Gana Matemáticas (nueva área). AGS, HGO, SIN, SLP, COB y MRL suben o aparecen con insuficiencia.'
   },
   ehe:{badge:'EHE',badgeClass:'b-ehe',kpi:{mat19:16,matP26:9,tot25:1491,tot26:231},
     areas:[
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'H1058',n:'Globalización, migración y territorio'}],m26:[]},
-      {name:'Humanidades y bellas artes',m19:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías, riesgos y transiciones'},{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'H1058',n:'Mercados y precios'}],m26:[]},
+      {name:'Humanidades y bellas artes',m19:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopía, ciencia ficción y distopía'}],m26:[]},
       {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'},{c:'H1063',n:'Argumentación, debate y el arte de persuadir'}],m26:[]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'EH1030',n:'Verdad e infodemia en redes y algoritmos',nuevo:true},{c:'H1072',n:'Ciencia de datos y analítica cultural',nuevo:true}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'}]}
+      {name:'Ética y ciudadanía',m19:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'},{c:'EH1015',n:'Derechos humanos y memoria'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1031',n:'Ética de la inteligencia artificial'},{c:'EH1032',n:'Responsabilidad social corporativa'}]}
     ],
-    campus:[{c:'AGS',v25:15,v26:0},{c:'CCM',v25:96,v26:14},{c:'CDJ',v25:4,v26:0},{c:'CEM',v25:56,v26:35},{c:'CHH',v25:23,v26:8},{c:'COB',v25:6,v26:0},{c:'CSF',v25:85,v26:10},{c:'GDA',v25:88,v26:15},{c:'HER',v25:3,v26:0},{c:'HGO',v25:14,v26:0},{c:'MEX',v25:2,v26:0},{c:'MTY',v25:621,v26:8},{c:'PUE',v25:40,v26:0},{c:'SIN',v25:21,v26:0}],
+    campus:[{c:'AGS',v25:15,v26:0},{c:'CCM',v25:96,v26:14},{c:'CDJ',v25:4,v26:0},{c:'CEM',v25:56,v26:35},{c:'CHH',v25:23,v26:8},{c:'COB',v25:6,v26:0},{c:'CSF',v25:85,v26:10},{c:'GDA',v25:88,v26:15},{c:'HER',v25:30,v26:0},{c:'HGO',v25:27,v26:12},{c:'LAG',v25:73,v26:28},{c:'LEO',v25:47,v26:24},{c:'MOR',v25:43,v26:2},{c:'MRL',v25:5,v26:0},{c:'MTY',v25:621,v26:8},{c:'PUE',v25:88,v26:0},{c:'QRO',v25:128,v26:34},{c:'SAL',v25:50,v26:20},{c:'SIN',v25:11,v26:16},{c:'SLP',v25:27,v26:0},{c:'TAM',v25:21,v26:8},{c:'TOL',v25:52,v26:0}],
     nota:'EHE pierde 7 materias (−44%) pero gana Matemáticas y ciencias (nueva área). Cs. sociales desaparece por completo. MTY cae de 621 a 8 alumnos (−99%). SIN sube.'
   },
   eic:{badge:'EIC',badgeClass:'b-eic',kpi:{mat19:4,matP26:1,tot25:1356,tot26:195},
     areas:[
-      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'MA1042',n:'Inteligencia artificial y datos'}],m26:[{c:'MA1042',n:'Inteligencia artificial y datos'}]}
+      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'MA1042',n:'Aplicaciones de cálculo avanzado'}],m26:[{c:'BI1001',n:'Biodiversidad y conservación'}]}
     ],
-    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:72,v26:0},{c:'CDJ',v25:1,v26:0},{c:'CEM',v25:22,v26:0},{c:'CHH',v25:3,v26:0},{c:'CSF',v25:88,v26:0},{c:'GDA',v25:170,v26:0},{c:'HER',v25:13,v26:0},{c:'HGO',v25:6,v26:0},{c:'LAG',v25:6,v26:0},{c:'MEX',v25:0,v26:0},{c:'MTY',v25:372,v26:195},{c:'SIN',v25:2,v26:0}],
+    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:72,v26:0},{c:'CDJ',v25:1,v26:0},{c:'CEM',v25:22,v26:0},{c:'CHH',v25:3,v26:0},{c:'CSF',v25:88,v26:0},{c:'GDA',v25:170,v26:0},{c:'HER',v25:13,v26:0},{c:'HGO',v25:10,v26:0},{c:'LAG',v25:27,v26:0},{c:'LEO',v25:13,v26:0},{c:'MOR',v25:0,v26:0},{c:'MRL',v25:0,v26:0},{c:'MTY',v25:832,v26:195},{c:'PUE',v25:63,v26:0},{c:'QRO',v25:18,v26:0},{c:'SAL',v25:11,v26:0},{c:'SIN',v25:0,v26:0},{c:'SLP',v25:10,v26:0},{c:'TAM',v25:11,v26:0},{c:'TOL',v25:4,v26:0}],
     nota:'EIC concentra su catálogo en 1 materia (−75%). DS1009, IB1005 e IB1006 desaparecen. 18 campus activos pasan a 1 (solo MTY). MA1042 era la materia de mayor demanda de toda la red.'
   },
   emcs:{badge:'EMCS',badgeClass:'b-emcs',kpi:{mat19:3,matP26:2,tot25:733,tot26:60},
@@ -621,14 +667,14 @@ const DATA={
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA',nuevo:true}]},
       {name:'Ética y ciudadanía',m19:[{c:'MB1002',n:'Bienestar humano, desarrollo sustentable y entorno construido'}],m26:[]}
     ],
-    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:106,v26:16},{c:'CEM',v25:13,v26:0},{c:'CHH',v25:11,v26:6},{c:'CSF',v25:30,v26:0},{c:'GDA',v25:156,v26:16},{c:'HER',v25:8,v26:0},{c:'HGO',v25:10,v26:0},{c:'LAG',v25:0,v26:0},{c:'MTY',v25:367,v26:22},{c:'SLP',v25:15,v26:0}],
+    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:106,v26:16},{c:'CEM',v25:13,v26:0},{c:'CHH',v25:11,v26:6},{c:'CSF',v25:30,v26:0},{c:'GDA',v25:156,v26:16},{c:'HER',v25:8,v26:0},{c:'HGO',v25:10,v26:0},{c:'LAG',v25:6,v26:0},{c:'LEO',v25:8,v26:0},{c:'MOR',v25:0,v26:0},{c:'MRL',v25:0,v26:0},{c:'MTY',v25:324,v26:22},{c:'PUE',v25:14,v26:0},{c:'QRO',v25:23,v26:0},{c:'SAL',v25:0,v26:0},{c:'SIN',v25:0,v26:0},{c:'SLP',v25:10,v26:0},{c:'TAM',v25:6,v26:0},{c:'TOL',v25:0,v26:0}],
     nota:'EMCS reorienta identidad: de salud (3 áreas) a ciencias de la vida + socioemocional (2 áreas). Liderazgo y Ética desaparecen. Gana Matemáticas (nueva área). 19 campus → 5.'
   },
   en:{badge:'EN',badgeClass:'b-en',kpi:{mat19:2,matP26:1,tot25:98,tot26:0},
     areas:[
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'EM1011',n:'Emprendimiento e innovación'}],m26:[{c:'EM1012',n:'Emprendimiento, innovación y modelos de negocio'}]}
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'EM1011',n:'Emprendimiento e innovación'}],m26:[{c:'EM1012',n:'Emprendimiento, innovación y creación de valor'}]}
     ],
-    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:12,v26:0},{c:'CEM',v25:4,v26:0},{c:'CHH',v25:2,v26:0},{c:'CSF',v25:7,v26:0},{c:'GDA',v25:6,v26:0},{c:'HER',v25:2,v26:0},{c:'HGO',v25:7,v26:0},{c:'LAG',v25:6,v26:0},{c:'MTY',v25:39,v26:0},{c:'SLP',v25:6,v26:0}],
+    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:12,v26:0},{c:'CEM',v25:4,v26:0},{c:'CHH',v25:2,v26:0},{c:'CSF',v25:7,v26:0},{c:'GDA',v25:6,v26:0},{c:'HER',v25:2,v26:0},{c:'HGO',v25:7,v26:0},{c:'LAG',v25:7,v26:0},{c:'LEO',v25:6,v26:0},{c:'MTY',v25:17,v26:0},{c:'PUE',v25:5,v26:0},{c:'QRO',v25:3,v26:0}],
     nota:'EN consolida 2→1 materia, permanece en una sola área temática y no tiene oferta Digital-ED en AD2026. EM1011 actualizada como EM1012 en formato presencial/mixto.'
   }
 };
@@ -675,7 +721,7 @@ function buildPanel(key){
   <div class="sec-lbl">2 — alumnos Digital-ED por campus: AD2025 vs AD2026</div>
   <div class="legend"><span><i style="background:#534AB7"></i>AD2025</span><span><i style="background:#1D9E75"></i>AD2026</span></div>
   <table class="campus-table" style="margin-top:.5rem">
-    <thead><tr><th style="width:11%">Campus</th><th class="bar-col">Comparativo</th><th style="width:13%;text-align:right">AD2025</th><th style="width:13%;text-align:right">AD2026</th><th style="width:11%;text-align:right">Cambio</th><th style="width:11%;text-align:right">%</th></tr></thead>
+    <thead><tr><th style="width:11%">Campus</th><th class="bar-col">Comparativo</th><th style="width:13%;text-align:right">AD2025</th><th style="width:13%;text-align:right">AD2026</th><th style="width:11%;text-align:right">Delta</th><th style="width:11%;text-align:right">%</th></tr></thead>
     <tbody>`;
 
   const maxV=Math.max(...d.campus.map(r=>Math.max(r.v25,r.v26)),1);
@@ -702,7 +748,7 @@ function buildPanel(key){
 
   const totD=tot26-tot25;
   const totPct=tot25>0?Math.round(totD/tot25*100):0;
-  html+=`<tr class="tot-row"><td colspan="2">Total</td><td style="text-align:right">${tot25.toLocaleString()}</td><td style="text-align:right">${tot26.toLocaleString()}</td><td style="text-align:right"><span class="pill-d">${totD.toLocaleString()}</span></td><td style="text-align:right"><span style="font-size:10px;color:${totD<0?'#A32D2D':'#3B6D11'};font-weight:500">${totD<0?'':''}${totPct}%</span></td></tr>`;
+  html+=`<tr class="tot-row"><td colspan="2">Total</td><td style="text-align:right">${tot25.toLocaleString()}</td><td style="text-align:right">${tot26.toLocaleString()}</td><td style="text-align:right"><span class="pill-d">−${Math.abs(totD).toLocaleString()}</span></td><td style="text-align:right"><span style="color:#A32D2D;font-weight:500">${totPct}%</span></td></tr>`;
   html+=`</tbody></table><div class="nota">${d.nota}</div>`;
 
   div.innerHTML=html;
