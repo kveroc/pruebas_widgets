@@ -1,66 +1,523 @@
 
 <h2 class="sr-only">Comparativo integrado: materias por área temática y alumnos Digital-ED por campus, AD2025 vs AD2026, global y por escuela</h2>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
-.tab{padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:none;color:var(--color-text-secondary)}
-.tab.active{color:var(--color-text-primary);border-color:var(--color-border-primary);background:var(--color-background-secondary)}
-.panel{display:none}.panel.active{display:block}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.25rem}
-.kpi{background:var(--color-background-secondary);border-radius:8px;padding:10px 14px}
-.kpi-l{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
-.kpi-v{font-size:17px;font-weight:500;color:var(--color-text-primary)}
-.kpi-v.dn{color:#A32D2D}.kpi-v.up{color:#3B6D11}.kpi-v.nt{color:#185FA5}
-.sec-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-secondary);margin:1.25rem 0 .6rem}
-.divider{height:0.5px;background:var(--color-border-tertiary);margin:1.5rem 0}
-.legend{display:flex;gap:14px;margin-bottom:10px;font-size:11px;color:var(--color-text-secondary)}
-.legend span{display:flex;align-items:center;gap:5px}
-.legend i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0}
-.mat-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:.5rem}
-.mat-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;text-transform:uppercase;letter-spacing:.04em}
-.mat-table td{padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top}
-.mat-table tr:last-child td{border-bottom:none}
-.area-pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;display:inline-block}
-.ah{background:#EEEDFE;color:#3C3489}.as{background:#E1F5EE;color:#0F6E56}
-.al{background:#FAEEDA;color:#854F0B}.ae{background:#FAECE7;color:#993C1D}
-.am{background:#E6F1FB;color:#185FA5}
-.count-pill{font-size:12px;font-weight:500;padding:2px 8px;border-radius:10px;display:inline-block}
-.y25-pill{background:#EEEDFE;color:#3C3489}.y26-pill{background:#E1F5EE;color:#0F6E56}
-.mat-item{font-size:11px;color:var(--color-text-primary);padding:2px 0;display:flex;align-items:baseline;gap:5px;line-height:1.4}
-.mat-clave{font-family:var(--font-mono);font-size:10px;color:var(--color-text-secondary);flex-shrink:0;padding:1px 4px;border:0.5px solid var(--color-border-tertiary);border-radius:3px}
-.new-tag{font-size:9px;padding:1px 5px;border-radius:8px;background:#E6F1FB;color:#185FA5;flex-shrink:0}
-.campus-table{width:100%;border-collapse:collapse;font-size:12px}
-.campus-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;text-transform:uppercase;letter-spacing:.04em}
-.campus-table td{padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:middle}
-.campus-table tr:last-child td{border-bottom:none}
-.campus-table tr.tot-row td{border-top:0.5px solid var(--color-border-secondary);font-weight:500;border-bottom:none;background:var(--color-background-secondary)}
-.bar-col{width:38%}
-.bar-wrap{display:flex;flex-direction:column;gap:2px}
-.bar-row-inner{display:flex;align-items:center;gap:4px}
-.bar-track{flex:1;height:7px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px}
-.pill-d{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#FCEBEB;color:#A32D2D}
-.pill-u{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#EAF3DE;color:#3B6D11}
-.pill-z{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
-.badge{font-size:12px;font-weight:500;padding:3px 10px;border-radius:5px;display:inline-block;margin-bottom:1rem}
-.b-all{background:#F1EFE8;color:#444441}
-.b-eaad{background:#EEEDFE;color:#3C3489}.b-ecsg{background:#E1F5EE;color:#0F6E56}
-.b-ehe{background:#FAECE7;color:#993C1D}.b-eic{background:#E6F1FB;color:#185FA5}
-.b-emcs{background:#FAEEDA;color:#854F0B}.b-en{background:#FBEAF0;color:#993556}
-.nota{font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-radius:6px;padding:8px 12px;margin-top:1rem;line-height:1.6}
+:root {
+  --color-primary: #534AB7;
+  --color-secondary: #1D9E75;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #666;
+  --color-background-primary: #fff;
+  --color-background-secondary: #f5f5f5;
+  --color-border-primary: #ddd;
+  --color-border-secondary: #e0e0e0;
+  --color-border-tertiary: #eeeeee;
+  --color-success: #3B6D11;
+  --color-danger: #A32D2D;
+  --color-info: #185FA5;
+  --font-mono: 'Courier New', monospace;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --radius: 8px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-background-secondary);
+}
+
+.dashboard-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: var(--color-background-primary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* NAVEGACIÓN */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-border-primary);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: var(--spacing-sm) 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 20px;
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(83, 74, 183, 0.05);
+}
+
+.tab.active {
+  color: white;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(83, 74, 183, 0.3);
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* KPI ROW */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.kpi {
+  background: linear-gradient(135deg, var(--color-background-secondary) 0%, rgba(83, 74, 183, 0.03) 100%);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.kpi:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.kpi-l {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.kpi-v {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.kpi-v.dn { color: var(--color-danger); }
+.kpi-v.up { color: var(--color-success); }
+.kpi-v.nt { color: var(--color-info); }
+
+/* SECCIONES */
+.sec-lbl {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+  display: flex;
+  align-items: center;
+}
+
+.sec-lbl::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  margin-right: var(--spacing-md);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border-primary);
+  margin: var(--spacing-lg) 0;
+}
+
+/* LEYENDAS */
+.legend {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* TABLAS DE MATERIAS */
+.mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: var(--spacing-md);
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.mat-table th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-md);
+  background: var(--color-background-secondary);
+  border-bottom: 2px solid var(--color-border-secondary);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mat-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-tertiary);
+  vertical-align: top;
+}
+
+.mat-table tbody tr:hover {
+  background: rgba(83, 74, 183, 0.03);
+  transition: background 0.2s ease;
+}
+
+.mat-table tr:last-child td {
+  border-bottom: none;
+}
+
+.area-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: var(--spacing-xs) 10px;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: var(--shadow-sm);
+}
+
+.ah { background: #EEEDFE; color: #3C3489; }
+.as { background: #E1F5EE; color: #0F6E56; }
+.al { background: #FAEEDA; color: #854F0B; }
+.ae { background: #FAECE7; color: #993C1D; }
+.am { background: #E6F1FB; color: #185FA5; }
+
+.count-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: var(--spacing-xs) 8px;
+  border-radius: 10px;
+  display: inline-block;
+  background: var(--color-background-secondary);
+}
+
+.y25-pill { background: #EEEDFE; color: #3C3489; }
+.y26-pill { background: #E1F5EE; color: #0F6E56; }
+
+.mat-item {
+  font-size: 12px;
+  color: var(--color-text-primary);
+  padding: var(--spacing-xs) 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  line-height: 1.5;
+}
+
+.mat-clave {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 3px;
+  background: var(--color-background-secondary);
+}
+
+.new-tag {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 12px;
+  background: #E6F1FB;
+  color: #185FA5;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* TABLA DE CAMPUS */
+.campus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.campus-table th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-md);
+  background: var(--color-background-secondary);
+  border-bottom: 2px solid var(--color-border-secondary);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.campus-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-tertiary);
+  vertical-align: middle;
+}
+
+.campus-table tbody tr:hover {
+  background: rgba(83, 74, 183, 0.03);
+  transition: background 0.2s ease;
+}
+
+.campus-table tr:last-child td {
+  border-bottom: none;
+}
+
+.campus-table tr.tot-row td {
+  border-top: 2px solid var(--color-border-secondary);
+  font-weight: 600;
+  border-bottom: none;
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.bar-col {
+  width: 38%;
+}
+
+.bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.bar-row-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 10px;
+  color: var(--color-text-secondary);
+}
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-background-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.pill-d {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #FCEBEB;
+  color: var(--color-danger);
+}
+
+.pill-u {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #EAF3DE;
+  color: var(--color-success);
+}
+
+.pill-z {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+}
+
+.badge {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  display: inline-block;
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.b-all { background: #F1EFE8; color: #444441; }
+.b-eaad { background: #EEEDFE; color: #3C3489; }
+.b-ecsg { background: #E1F5EE; color: #0F6E56; }
+.b-ehe { background: #FAECE7; color: #993C1D; }
+.b-eic { background: #E6F1FB; color: #185FA5; }
+.b-emcs { background: #FAEEDA; color: #854F0B; }
+.b-en { background: #FBEAF0; color: #993556; }
+
+.nota {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    padding: var(--spacing-md);
+  }
+
+  .kpi-row {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  .kpi {
+    padding: var(--spacing-sm);
+  }
+
+  .kpi-v {
+    font-size: 22px;
+  }
+
+  .mat-table,
+  .campus-table {
+    font-size: 12px;
+  }
+
+  .mat-table th,
+  .campus-table th {
+    padding: var(--spacing-sm);
+    font-size: 10px;
+  }
+
+  .mat-table td,
+  .campus-table td {
+    padding: var(--spacing-sm);
+  }
+
+  .bar-col {
+    width: 30%;
+  }
+
+  .legend {
+    gap: var(--spacing-md);
+    font-size: 10px;
+  }
+
+  .nav {
+    gap: var(--spacing-xs);
+  }
+
+  .tab {
+    padding: var(--spacing-xs) 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-col {
+    width: 25%;
+  }
+
+  .sec-lbl {
+    font-size: 11px;
+  }
+
+  .area-pill,
+  .count-pill {
+    font-size: 10px;
+  }
+}
 </style>
 
-<div style="padding:1rem 0">
-<div class="nav">
-  <button class="tab active" onclick="show('all',this)">Global</button>
-  <button class="tab" onclick="show('eaad',this)">EAAD</button>
-  <button class="tab" onclick="show('ecsg',this)">ECSG</button>
-  <button class="tab" onclick="show('ehe',this)">EHE</button>
-  <button class="tab" onclick="show('eic',this)">EIC</button>
-  <button class="tab" onclick="show('emcs',this)">EMCS</button>
-  <button class="tab" onclick="show('en',this)">EN</button>
-</div>
-<div id="panels"></div>
+<div class="dashboard-wrapper">
+  <div style="padding: 0">
+    <div class="nav">
+      <button class="tab active" onclick="show('all',this)">Global</button>
+      <button class="tab" onclick="show('eaad',this)">EAAD</button>
+      <button class="tab" onclick="show('ecsg',this)">ECSG</button>
+      <button class="tab" onclick="show('ehe',this)">EHE</button>
+      <button class="tab" onclick="show('eic',this)">EIC</button>
+      <button class="tab" onclick="show('emcs',this)">EMCS</button>
+      <button class="tab" onclick="show('en',this)">EN</button>
+    </div>
+    <div id="panels"></div>
+  </div>
 </div>
 
 <script>
@@ -71,54 +528,59 @@ function show(id,btn){
   document.getElementById('p-'+id).classList.add('active');
   btn.classList.add('active');
 }
-const AREA_CLASS={'Humanidades y bellas artes':'ah','Ciencias sociales y del comportamiento':'as','Liderazgo, emprendimiento e innovación':'al','Ética y ciudadanía':'ae','Matemáticas y ciencias':'am','Matemáticas y ciencias naturales':'am'};
+const AREA_CLASS={'Humanidades y bellas artes':'ah','Ciencias sociales y del comportamiento':'as','Liderazgo, emprendimiento e innovación':'al','Ética y ciudadanía':'ae','Matemáticas y ciencias':'am'};
 function ac(a){return AREA_CLASS[a]||'am';}
 
 const DATA={
   all:{badge:'Global — todas las escuelas',badgeClass:'b-all',kpi:{mat19:40,matP26:30,tot25:5094,tot26:1056},
     areas:[
-      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías y distopías'},{c:'H1057',n:'Los mitos que nos habitan: de Prometeo a Marvel'},{c:'H2054',n:'Viajeros del mundo: narrativas, mapas y fronteras'},{c:'IM1003',n:'Apreciación multidisciplinaria de la música'},{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[{c:'H1073',n:'De Prometeo a Marvel: cine, mitos y videojuegos'},{c:'CO1011',n:'Argumentación, debate y el arte de la persuasión'},{c:'EH1031',n:'México diverso: patrimonio y memoria viva'},{c:'AV1011',n:'Análisis cinematográfico: de Lumiére al streaming'},{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemologías para escenarios alternativos'}]},
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'H1058',n:'Antropología del cuerpo'},{c:'P1012',n:'Cambio tecnológico y desarrollo social'},{c:'P1013',n:'Política Mexicana: evolución y desafíos'},{c:'RI1016',n:'Género, sociedad y derechos humanos'},{c:'RI1018',n:'Geopolítica y cambios tecnológicos: el futuro'},{c:'SD1019',n:'Salud y bienestar personal'}],m26:[{c:'D1037',n:'Brújula legal en el mundo real'},{c:'RI1019',n:'Identidades sexo-genéricas y futuros posibles'},{c:'RI1020',n:'Seguridad en el (des)orden global'},{c:'EC1025',n:'De microincentivos a macroresultados'},{c:'EC1024',n:'Futuros urbanos: datos, diseño y política pública'},{c:'CC1029',n:'Habilidades socioemocionales para el cambio'}]},
-      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'MA1042',n:'Matemáticas y ciencia de datos para la toma de decisiones'}],m26:[{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA'},{c:'MA1062',n:'Matemáticas y ciencia de datos'},{c:'EH1030',n:'Verdad e infodemia en redes y algoritmos'},{c:'H1072',n:'Ciencia de datos y analítica cultural'},{c:'EC1023',n:'Economía y finanzas personales aplicadas'},{c:'A1010',n:'Dibujo anatómico y natural'}]},
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'},{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'},{c:'EM1011',n:'Emprendimiento e innovación'},{c:'H1063',n:'Argumentación, debate y el arte de hablar en público'},{c:'MB1001',n:'Salud global para líderes'}],m26:[{c:'EM1012',n:'Emprendimiento, liderazgo e innovación'},{c:'A1013',n:'Negocios en industrias creativas y culturales'},{c:'DL1028',n:'Laboratorio de innovación y diseño regenerativo'},{c:'P1019',n:'Innovación y valor público'},{c:'EH1032',n:'Cultura, innovación y emprendimiento social'},{c:'EH1033',n:'Liderazgo inclusivo y gestión de la diversidad'}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia social'},{c:'EH1021',n:'Ecofeminismo y humanidades ambientales'},{c:'H1059',n:'Ética y psicología: del autoconocimiento a la realización'},{c:'MB1002',n:'Bienestar humano, desarrollo sustentable'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'},{c:'P1014',n:'Ciudadanía y tecnología'}],m26:[{c:'H1074',n:'Ética e inteligencia artificial'},{c:'EH1036',n:'Futuros posibles: ética y diversidad sostenibles'},{c:'EH1035',n:'Ética y tecnología en la era posthumana'},{c:'EH1034',n:'Ecofeminismos y horizontes comunitarios'},{c:'D1038',n:'Igualdad en construcción: género y derechos'},{c:'P1020',n:'Ciudadanía digital, ética y legalidad'}]}
+      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías, riesgos y transiciones'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'P1012',n:'Pensamiento estadístico'}],m26:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'P1012',n:'Pensamiento estadístico'}]},
+      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'}],m26:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA',nuevo:true},{c:'MA1042',n:'Inteligencia artificial y datos',nuevo:true},{c:'EC1023',n:'Economía y finanzas personales aplicadas',nuevo:true}]},
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'},{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'}],m26:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'DL1023',n:'Innovación y procesos creativos'},{c:'P1019',n:'Innovación y valor público'}]},
+      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}]},
     ],
-    campus:[{c:'AGS',v25:37,v26:12},{c:'CCM',v25:409,v26:70},{c:'CDJ',v25:6,v26:4},{c:'CEM',v25:201,v26:71},{c:'CHH',v25:71,v26:34},{c:'COB',v25:6,v26:16},{c:'CSF',v25:327,v26:40},{c:'GDA',v25:617,v26:61},{c:'HER',v25:65,v26:26},{c:'HGO',v25:90,v26:24},{c:'LAG',v25:154,v26:28},{c:'LEO',v25:88,v26:24},{c:'MOR',v25:43,v26:2},{c:'MRL',v25:5,v26:12},{c:'MTY',v25:1902,v26:399},{c:'PUE',v25:238,v26:75},{c:'QRO',v25:416,v26:54},{c:'SAL',v25:99,v26:30},{c:'SIN',v25:17,v26:16},{c:'SLP',v25:51,v26:14},{c:'TAM',v25:60,v26:14},{c:'TOL',v25:192,v26:30}],
-    nota:'El catálogo global pasa de 40 a 30 materias (−25%). Matemáticas y ciencias es la única área que crece (4→6). Las demás reducen. Alumnos Digital-ED caen −79% a nivel institución.'},
+    campus:[{c:'AGS',v25:37,v26:12},{c:'CCM',v25:409,v26:70},{c:'CDJ',v25:6,v26:4},{c:'CEM',v25:201,v26:71},{c:'CHH',v25:71,v26:34},{c:'COB',v25:6,v26:16},{c:'CSF',v25:327,v26:40},{c:'GDA',v25:617,v26:98},{c:'HER',v25:28,v26:0},{c:'HGO',v25:55,v26:12},{c:'LAG',v25:7,v26:0},{c:'MEX',v25:3,v26:0},{c:'MTY',v25:1088,v26:644},{c:'PUE',v25:40,v26:0},{c:'SIN',v25:49,v26:31},{c:'SLP',v25:29,v26:12},{c:'MRL',v25:27,v26:12}],
+    nota:'El catálogo global pasa de 40 a 30 materias (−25%). Matemáticas y ciencias es la única área que crece (4→6). Las demás reducen. Alumnos Digital-ED caen −79% a nivel institución.'
+  },
   eaad:{badge:'EAAD',badgeClass:'b-eaad',kpi:{mat19:3,matP26:4,tot25:28,tot26:0},
     areas:[
-      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemologías para escenarios alternativos'}]},
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'DL1023',n:'Innovación y procesos creativos'}],m26:[{c:'A1013',n:'Negocios en industrias creativas y culturales'},{c:'DL1028',n:'Laboratorio de innovación y diseño regenerativo'}]},
+      {name:'Humanidades y bellas artes',m19:[{c:'A1005',n:'Apreciación del arte'},{c:'AT1005',n:'Cultura de la imagen'}],m26:[{c:'A1011',n:'Arte global: historia plural'},{c:'A1012',n:'Epistemología de las artes'}]},
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'DL1023',n:'Innovación y procesos creativos'}],m26:[{c:'A1013',n:'Negocios en industrias creativas y culturales'},{c:'DL1028',n:'Laboratorio de innovación y emprendimiento'}]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'A1010',n:'Dibujo anatómico y natural',nuevo:true}]}
     ],
-    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:2,v26:0},{c:'CEM',v25:2,v26:0},{c:'CHH',v25:1,v26:0},{c:'CSF',v25:3,v26:0},{c:'GDA',v25:1,v26:0},{c:'HER',v25:1,v26:0},{c:'HGO',v25:1,v26:0},{c:'LAG',v25:1,v26:0},{c:'LEO',v25:1,v26:0},{c:'MOR',v25:1,v26:0},{c:'MTY',v25:5,v26:0},{c:'PUE',v25:1,v26:0},{c:'QRO',v25:2,v26:0},{c:'SAL',v25:1,v26:0},{c:'SLP',v25:2,v26:0},{c:'TAM',v25:1,v26:0},{c:'TOL',v25:1,v26:0}],
-    nota:'EAAD gana una materia y una nueva área (Matemáticas) pero pierde toda su oferta Digital-ED en AD2026. Liderazgo dobla materias (1→2).'},
+    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:2,v26:0},{c:'CEM',v25:2,v26:0},{c:'CHH',v25:1,v26:0},{c:'CSF',v25:3,v26:0},{c:'GDA',v25:1,v26:0},{c:'HER',v25:1,v26:0},{c:'HGO',v25:1,v26:0},{c:'LAG',v25:1,v26:0},{c:'MEX',v25:1,v26:0},{c:'MTY',v25:13,v26:0},{c:'SLP',v25:1,v26:0}],
+    nota:'EAAD gana una materia y una nueva área (Matemáticas) pero pierde toda su oferta Digital-ED en AD2026. Liderazgo dobla materias (1→2).'
+  },
   ecsg:{badge:'ECSG',badgeClass:'b-ecsg',kpi:{mat19:11,matP26:9,tot25:1388,tot26:570},
     areas:[
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'P1012',n:'Cambio tecnológico y desarrollo social'},{c:'P1013',n:'Política Mexicana: evolución y desafíos'},{c:'RI1016',n:'Género, sociedad y derechos humanos'},{c:'RI1018',n:'Geopolítica y cambios tecnológicos: el futuro'}],m26:[{c:'D1037',n:'Brújula legal en el mundo real'},{c:'RI1019',n:'Identidades sexo-genéricas y futuros posibles'},{c:'RI1020',n:'Seguridad en el (des)orden global'},{c:'EC1025',n:'De microincentivos a macroresultados'},{c:'EC1024',n:'Futuros urbanos: datos, diseño y política pública'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'D1030',n:'De Roma para el mundo: instituciones jurídicas'},{c:'EC1020',n:'Micro incentivos económicos y macro resultados'},{c:'P1012',n:'Pensamiento estadístico'},{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'}],m26:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'P1012',n:'Pensamiento estadístico'}]},
       {name:'Humanidades y bellas artes',m19:[{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[]},
       {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'EC1018',n:'Anticorrupción en gobierno, empresas y sociedad'}],m26:[{c:'P1019',n:'Innovación y valor público'}]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'EC1023',n:'Economía y finanzas personales aplicadas',nuevo:true}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'},{c:'P1014',n:'Ciudadanía y tecnología'}],m26:[{c:'D1038',n:'Igualdad en construcción: género y derechos'},{c:'P1020',n:'Ciudadanía digital, ética y legalidad'}]}
+      {name:'Ética y ciudadanía',m19:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'},{c:'P1014',n:'Ciudadanía y tecnología'}],m26:[{c:'EC1019',n:'Ciudadanía y ciudades inteligentes'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}]}
     ],
-    campus:[{c:'AGS',v25:6,v26:12},{c:'CCM',v25:121,v26:40},{c:'CDJ',v25:1,v26:4},{c:'CEM',v25:104,v26:36},{c:'CHH',v25:31,v26:20},{c:'COB',v25:0,v26:16},{c:'CSF',v25:114,v26:30},{c:'GDA',v25:196,v26:30},{c:'HER',v25:19,v26:14},{c:'HGO',v25:10,v26:12},{c:'LAG',v25:49,v26:20},{c:'LEO',v25:43,v26:20},{c:'MOR',v25:6,v26:2},{c:'MRL',v25:0,v26:12},{c:'MTY',v25:323,v26:180},{c:'PUE',v25:74,v26:24},{c:'QRO',v25:133,v26:32},{c:'SAL',v25:27,v26:18},{c:'SIN',v25:3,v26:4},{c:'SLP',v25:12,v26:12},{c:'TAM',v25:38,v26:14},{c:'TOL',v25:78,v26:18}],
-    nota:'ECSG mantiene 4 áreas temáticas pero reduce 11→9 materias. Humanidades desaparece (RI1017 sin continuidad). Gana Matemáticas (nueva área). AGS, HGO, SIN, SLP, COB y MRL suben o aparecen.'},
+    campus:[{c:'AGS',v25:6,v26:12},{c:'CCM',v25:121,v26:40},{c:'CDJ',v25:1,v26:4},{c:'CEM',v25:104,v26:36},{c:'CHH',v25:31,v26:20},{c:'COB',v25:0,v26:16},{c:'CSF',v25:114,v26:30},{c:'GDA',v25:196,v26:182},{c:'HGO',v25:12,v26:24},{c:'MTY',v25:432,v26:144},{c:'SIN',v25:8,v26:31},{c:'SLP',v25:13,v26:28},{c:'MRL',v25:2,v26:3}],
+    nota:'ECSG mantiene 4 áreas temáticas pero reduce 11→9 materias. Humanidades desaparece (RI1017 sin continuidad). Gana Matemáticas (nueva área). AGS, HGO, SIN, SLP, COB y MRL suben o aparecen.'
+  },
   ehe:{badge:'EHE',badgeClass:'b-ehe',kpi:{mat19:16,matP26:9,tot25:1491,tot26:231},
     areas:[
-      {name:'Ciencias sociales y del comportamiento',m19:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'H1058',n:'Antropología del cuerpo'}],m26:[]},
-      {name:'Humanidades y bellas artes',m19:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías y distopías'},{c:'H1057',n:'Los mitos que nos habitan: de Prometeo a Marvel'},{c:'H2054',n:'Viajeros del mundo: narrativas, mapas y fronteras'},{c:'IM1003',n:'Apreciación multidisciplinaria de la música'}],m26:[{c:'H1073',n:'De Prometeo a Marvel: cine, mitos y videojuegos'},{c:'CO1011',n:'Argumentación, debate y el arte de la persuasión'},{c:'EH1031',n:'México diverso: patrimonio y memoria viva'},{c:'AV1011',n:'Análisis cinematográfico: de Lumiére al streaming'}]},
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'},{c:'H1063',n:'Argumentación, debate y el arte de hablar en público'}],m26:[{c:'EH1032',n:'Cultura, innovación y emprendimiento social'},{c:'EH1033',n:'Liderazgo inclusivo y gestión de la diversidad'}]},
+      {name:'Ciencias sociales y del comportamiento',m19:[{c:'EH1010',n:'Claves de la felicidad para el florecimiento humano'},{c:'EH1018',n:'Infodemia y posverdad: ideología, algoritmos'},{c:'H1058',n:'Globalización, migración y territorio'}],m26:[]},
+      {name:'Humanidades y bellas artes',m19:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'},{c:'EH1013',n:'Patrimonio cultural de México'},{c:'EH1017',n:'Futuros posibles: utopías, riesgos y transiciones'},{c:'RI1017',n:'Hitos históricos de los siglos XX y XXI'}],m26:[{c:'AV1010',n:'Análisis cinematográfico: de Lumiere a Netflix'}]},
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'EH1019',n:'Liderazgo intercultural'},{c:'EH1020',n:'Liderazgo inclusivo y diversidad'},{c:'H1063',n:'Argumentación, debate y el arte de persuadir'}],m26:[]},
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'EH1030',n:'Verdad e infodemia en redes y algoritmos',nuevo:true},{c:'H1072',n:'Ciencia de datos y analítica cultural',nuevo:true}]},
-      {name:'Ética y ciudadanía',m19:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia social'},{c:'EH1021',n:'Ecofeminismo y humanidades ambientales'},{c:'H1059',n:'Ética y psicología: del autoconocimiento a la realización'}],m26:[{c:'H1074',n:'Ética e inteligencia artificial'},{c:'EH1036',n:'Futuros posibles: ética y diversidad sostenibles'},{c:'EH1035',n:'Ética y tecnología en la era posthumana'},{c:'EH1034',n:'Ecofeminismos y horizontes comunitarios'}]}
+      {name:'Ética y ciudadanía',m19:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'},{c:'EH1014',n:'Violencia, dignidad y justicia'},{c:'P1006',n:'Ciudadanía global: diversidad y tolerancia'}],m26:[{c:'EH1011',n:'Posthumanismo, ética y tecnología'},{c:'EH1012',n:'Ética, sostenibilidad y responsabilidad social'}]}
     ],
-    campus:[{c:'AGS',v25:15,v26:0},{c:'CCM',v25:96,v26:14},{c:'CDJ',v25:4,v26:0},{c:'CEM',v25:56,v26:35},{c:'CHH',v25:23,v26:8},{c:'COB',v25:6,v26:0},{c:'CSF',v25:85,v26:10},{c:'GDA',v25:88,v26:15},{c:'HER',v25:22,v26:12},{c:'HGO',v25:39,v26:12},{c:'LAG',v25:45,v26:8},{c:'LEO',v25:18,v26:4},{c:'MOR',v25:30,v26:0},{c:'MRL',v25:5,v26:0},{c:'MTY',v25:621,v26:8},{c:'PUE',v25:89,v26:51},{c:'QRO',v25:100,v26:16},{c:'SAL',v25:48,v26:12},{c:'SIN',v25:5,v26:12},{c:'SLP',v25:14,v26:2},{c:'TAM',v25:10,v26:0},{c:'TOL',v25:72,v26:12}],
-    nota:'EHE pierde 7 materias (−44%) pero gana Matemáticas y ciencias (nueva área). Cs. sociales desaparece por completo. MTY cae de 621 a 8 alumnos (−99%). SIN sube.'},
+    campus:[{c:'AGS',v25:15,v26:0},{c:'CCM',v25:96,v26:14},{c:'CDJ',v25:4,v26:0},{c:'CEM',v25:56,v26:35},{c:'CHH',v25:23,v26:8},{c:'COB',v25:6,v26:0},{c:'CSF',v25:85,v26:10},{c:'GDA',v25:88,v26:15},{c:'HER',v25:3,v26:0},{c:'HGO',v25:14,v26:0},{c:'MEX',v25:2,v26:0},{c:'MTY',v25:621,v26:8},{c:'PUE',v25:40,v26:0},{c:'SIN',v25:21,v26:0}],
+    nota:'EHE pierde 7 materias (−44%) pero gana Matemáticas y ciencias (nueva área). Cs. sociales desaparece por completo. MTY cae de 621 a 8 alumnos (−99%). SIN sube.'
+  },
   eic:{badge:'EIC',badgeClass:'b-eic',kpi:{mat19:4,matP26:1,tot25:1356,tot26:195},
     areas:[
-      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'MA1042',n:'Matemáticas y ciencia de datos para la toma de decisiones'}],m26:[{c:'MA1062',n:'Matemáticas y ciencia de datos'}]}
+      {name:'Matemáticas y ciencias',m19:[{c:'DS1009',n:'Procesos ecológicos para el desarrollo humano'},{c:'IB1005',n:'Fundamentación de sistemas biológicos'},{c:'IB1006',n:'Biomimética y sustentabilidad'},{c:'MA1042',n:'Inteligencia artificial y datos'}],m26:[{c:'MA1042',n:'Inteligencia artificial y datos'}]}
     ],
-    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:72,v26:0},{c:'CDJ',v25:1,v26:0},{c:'CEM',v25:22,v26:0},{c:'CHH',v25:3,v26:0},{c:'CSF',v25:88,v26:0},{c:'GDA',v25:170,v26:0},{c:'HER',v25:13,v26:0},{c:'HGO',v25:23,v26:0},{c:'LAG',v25:31,v26:0},{c:'LEO',v25:5,v26:0},{c:'MTY',v25:660,v26:195},{c:'PUE',v25:57,v26:0},{c:'QRO',v25:163,v26:0},{c:'SAL',v25:4,v26:0},{c:'SIN',v25:2,v26:0},{c:'SLP',v25:14,v26:0},{c:'TOL',v25:27,v26:0}],
-    nota:'EIC concentra su catálogo en 1 materia (−75%). DS1009, IB1005 e IB1006 desaparecen. 18 campus activos pasan a 1 (solo MTY). MA1042 era la materia de mayor demanda de toda la red.'},
+    campus:[{c:'AGS',v25:1,v26:0},{c:'CCM',v25:72,v26:0},{c:'CDJ',v25:1,v26:0},{c:'CEM',v25:22,v26:0},{c:'CHH',v25:3,v26:0},{c:'CSF',v25:88,v26:0},{c:'GDA',v25:170,v26:0},{c:'HER',v25:13,v26:0},{c:'HGO',v25:6,v26:0},{c:'LAG',v25:6,v26:0},{c:'MEX',v25:0,v26:0},{c:'MTY',v25:372,v26:195},{c:'SIN',v25:2,v26:0}],
+    nota:'EIC concentra su catálogo en 1 materia (−75%). DS1009, IB1005 e IB1006 desaparecen. 18 campus activos pasan a 1 (solo MTY). MA1042 era la materia de mayor demanda de toda la red.'
+  },
   emcs:{badge:'EMCS',badgeClass:'b-emcs',kpi:{mat19:3,matP26:2,tot25:733,tot26:60},
     areas:[
       {name:'Ciencias sociales y del comportamiento',m19:[{c:'SD1019',n:'Salud y bienestar personal'}],m26:[{c:'CC1029',n:'Habilidades socioemocionales para el cambio'}]},
@@ -126,14 +588,16 @@ const DATA={
       {name:'Matemáticas y ciencias',m19:[],m26:[{c:'BI1004',n:'Lenguajes de la vida: biología, datos e IA',nuevo:true}]},
       {name:'Ética y ciudadanía',m19:[{c:'MB1002',n:'Bienestar humano, desarrollo sustentable y entorno construido'}],m26:[]}
     ],
-    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:106,v26:16},{c:'CEM',v25:13,v26:0},{c:'CHH',v25:11,v26:6},{c:'CSF',v25:30,v26:0},{c:'GDA',v25:156,v26:16},{c:'HER',v25:8,v26:0},{c:'HGO',v25:10,v26:0},{c:'LAG',v25:25,v26:0},{c:'LEO',v25:19,v26:0},{c:'MOR',v25:6,v26:0},{c:'MTY',v25:255,v26:16},{c:'PUE',v25:17,v26:0},{c:'QRO',v25:17,v26:6},{c:'SAL',v25:19,v26:0},{c:'SIN',v25:5,v26:0},{c:'SLP',v25:7,v26:0},{c:'TAM',v25:11,v26:0},{c:'TOL',v25:11,v26:0}],
-    nota:'EMCS reorienta identidad: de salud (3 áreas) a ciencias de la vida + socioemocional (2 áreas). Liderazgo y Ética desaparecen. Gana Matemáticas (nueva área). 19 campus → 5.'},
+    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:106,v26:16},{c:'CEM',v25:13,v26:0},{c:'CHH',v25:11,v26:6},{c:'CSF',v25:30,v26:0},{c:'GDA',v25:156,v26:16},{c:'HER',v25:8,v26:0},{c:'HGO',v25:10,v26:0},{c:'LAG',v25:0,v26:0},{c:'MTY',v25:367,v26:22},{c:'SLP',v25:15,v26:0}],
+    nota:'EMCS reorienta identidad: de salud (3 áreas) a ciencias de la vida + socioemocional (2 áreas). Liderazgo y Ética desaparecen. Gana Matemáticas (nueva área). 19 campus → 5.'
+  },
   en:{badge:'EN',badgeClass:'b-en',kpi:{mat19:2,matP26:1,tot25:98,tot26:0},
     areas:[
-      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'EM1011',n:'Emprendimiento e innovación'}],m26:[{c:'EM1012',n:'Emprendimiento, liderazgo e innovación'}]}
+      {name:'Liderazgo, emprendimiento e innovación',m19:[{c:'AD2035',n:'Introducción a los negocios conscientes'},{c:'EM1011',n:'Emprendimiento e innovación'}],m26:[{c:'EM1012',n:'Emprendimiento, innovación y modelos de negocio'}]}
     ],
-    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:12,v26:0},{c:'CEM',v25:4,v26:0},{c:'CHH',v25:2,v26:0},{c:'CSF',v25:7,v26:0},{c:'GDA',v25:6,v26:0},{c:'HER',v25:2,v26:0},{c:'HGO',v25:7,v26:0},{c:'LAG',v25:3,v26:0},{c:'LEO',v25:2,v26:0},{c:'MTY',v25:38,v26:0},{c:'QRO',v25:1,v26:0},{c:'SIN',v25:2,v26:0},{c:'SLP',v25:2,v26:0},{c:'TOL',v25:3,v26:0}],
-    nota:'EN consolida 2→1 materia, permanece en una sola área temática y no tiene oferta Digital-ED en AD2026. EM1011 actualizada como EM1012 en formato presencial/mixto.'}
+    campus:[{c:'AGS',v25:7,v26:0},{c:'CCM',v25:12,v26:0},{c:'CEM',v25:4,v26:0},{c:'CHH',v25:2,v26:0},{c:'CSF',v25:7,v26:0},{c:'GDA',v25:6,v26:0},{c:'HER',v25:2,v26:0},{c:'HGO',v25:7,v26:0},{c:'LAG',v25:6,v26:0},{c:'MTY',v25:39,v26:0},{c:'SLP',v25:6,v26:0}],
+    nota:'EN consolida 2→1 materia, permanece en una sola área temática y no tiene oferta Digital-ED en AD2026. EM1011 actualizada como EM1012 en formato presencial/mixto.'
+  }
 };
 
 function buildPanel(key){
@@ -147,9 +611,9 @@ function buildPanel(key){
   let html=`<div class="badge ${d.badgeClass}">${d.badge}</div>
   <div class="kpi-row">
     <div class="kpi"><div class="kpi-l">Materias EG-2019</div><div class="kpi-v nt">${d.kpi.mat19}</div></div>
-    <div class="kpi"><div class="kpi-l">Materias P2026</div><div class="kpi-v ${matDelta>0?'up':matDelta<0?'dn':'nt'}">${d.kpi.matP26} (${matDelta>0?'+':''}${matDelta})</div></div>
+    <div class="kpi"><div class="kpi-l">Materias P2026</div><div class="kpi-v ${matDelta>0?'up':matDelta<0?'dn':'nt'}">${d.kpi.matP26} <span style="font-size:16px">(${matDelta>0?'+':''}${matDelta})</span></div></div>
     <div class="kpi"><div class="kpi-l">Alumnos Digital-ED AD2025</div><div class="kpi-v nt">${d.kpi.tot25.toLocaleString()}</div></div>
-    <div class="kpi"><div class="kpi-l">Alumnos Digital-ED AD2026</div><div class="kpi-v dn">${d.kpi.tot26.toLocaleString()} (${pct}%)</div></div>
+    <div class="kpi"><div class="kpi-l">Alumnos Digital-ED AD2026</div><div class="kpi-v dn">${d.kpi.tot26.toLocaleString()} <span style="font-size:16px">(${pct}%)</span></div></div>
   </div>
   <div class="sec-lbl">1 — materias por área temática: plan EG-2019 vs plan EG-P2026</div>
   <div class="legend"><span><i style="background:#534AB7"></i>EG-2019</span><span><i style="background:#1D9E75"></i>EG-P2026</span></div>
@@ -178,7 +642,7 @@ function buildPanel(key){
   <div class="sec-lbl">2 — alumnos Digital-ED por campus: AD2025 vs AD2026</div>
   <div class="legend"><span><i style="background:#534AB7"></i>AD2025</span><span><i style="background:#1D9E75"></i>AD2026</span></div>
   <table class="campus-table" style="margin-top:.5rem">
-    <thead><tr><th style="width:11%">Campus</th><th class="bar-col">Comparativo</th><th style="width:13%;text-align:right">AD2025</th><th style="width:13%;text-align:right">AD2026</th><th style="width:15%;text-align:right">Δ</th><th style="width:12%;text-align:right">%</th></tr></thead>
+    <thead><tr><th style="width:11%">Campus</th><th class="bar-col">Comparativo</th><th style="width:13%;text-align:right">AD2025</th><th style="width:13%;text-align:right">AD2026</th><th style="width:11%;text-align:right">Cambio</th><th style="width:11%;text-align:right">%</th></tr></thead>
     <tbody>`;
 
   const maxV=Math.max(...d.campus.map(r=>Math.max(r.v25,r.v26)),1);
@@ -188,16 +652,16 @@ function buildPanel(key){
     const delta=r.v26-r.v25;
     const pct2=r.v25>0?Math.round(delta/r.v25*100):null;
     const pillHtml=delta>0?`<span class="pill-u">+${delta}</span>`:delta<0?`<span class="pill-d">${delta}</span>`:`<span class="pill-z">0</span>`;
-    const pctStr=pct2!==null?`<span style="font-size:10px;color:${delta<0?'#A32D2D':delta>0?'#3B6D11':'var(--color-text-secondary)'}">${pct2>0?'+':''}${pct2}%</span>`:'—';
+    const pctStr=pct2!==null?`<span style="font-size:10px;color:${delta<0?'#A32D2D':delta>0?'#3B6D11':'var(--color-text-secondary)'};font-weight:500">${pct2>0?'+':''}${pct2}%</span>`:'—';
     const w25=Math.round(r.v25/maxV*100), w26=Math.round(r.v26/maxV*100);
     html+=`<tr>
-      <td style="font-family:var(--font-mono);font-size:11px">${r.c}</td>
+      <td style="font-family:var(--font-mono);font-size:11px;font-weight:500">${r.c}</td>
       <td class="bar-col"><div class="bar-wrap">
         <div class="bar-row-inner"><div class="bar-track"><div class="bar-fill" style="width:${w25}%;background:#534AB7"></div></div></div>
         <div class="bar-row-inner"><div class="bar-track"><div class="bar-fill" style="width:${w26}%;background:#1D9E75"></div></div></div>
       </div></td>
-      <td style="text-align:right;font-size:12px">${r.v25||'—'}</td>
-      <td style="text-align:right;font-size:12px">${r.v26>0?r.v26:(r.v25>0?'0':'—')}</td>
+      <td style="text-align:right;font-size:12px;font-weight:500">${r.v25||'—'}</td>
+      <td style="text-align:right;font-size:12px;font-weight:500">${r.v26>0?r.v26:(r.v25>0?'0':'—')}</td>
       <td style="text-align:right">${pillHtml}</td>
       <td style="text-align:right">${pctStr}</td>
     </tr>`;
@@ -205,7 +669,7 @@ function buildPanel(key){
 
   const totD=tot26-tot25;
   const totPct=tot25>0?Math.round(totD/tot25*100):0;
-  html+=`<tr class="tot-row"><td colspan="2">Total</td><td style="text-align:right">${tot25.toLocaleString()}</td><td style="text-align:right">${tot26.toLocaleString()}</td><td style="text-align:right"><span class="${totD<0?'pill-d':'pill-u'}">${totD>0?'+':''}${totD.toLocaleString()}</span></td><td style="text-align:right"><span style="font-size:10px;color:#A32D2D">${totPct}%</span></td></tr>`;
+  html+=`<tr class="tot-row"><td colspan="2">Total</td><td style="text-align:right">${tot25.toLocaleString()}</td><td style="text-align:right">${tot26.toLocaleString()}</td><td style="text-align:right"><span class="pill-d">${totD.toLocaleString()}</span></td><td style="text-align:right"><span style="font-size:10px;color:${totD<0?'#A32D2D':'#3B6D11'};font-weight:500">${totD<0?'':''}${totPct}%</span></td></tr>`;
   html+=`</tbody></table><div class="nota">${d.nota}</div>`;
 
   div.innerHTML=html;
