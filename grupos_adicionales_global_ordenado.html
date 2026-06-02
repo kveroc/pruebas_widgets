@@ -1,0 +1,181 @@
+
+<h2 class="sr-only">Grupos adicionales necesarios por campus a nivel global, ordenados de mayor a menor, para igualar alumnos Digital-ED AD2025 con grupos de 25 alumnos</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.25rem}
+.kpi{background:var(--color-background-secondary);border-radius:8px;padding:10px 14px}
+.kpi-l{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
+.kpi-v{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.kpi-v.dn{color:#A32D2D}.kpi-v.nt{color:#185FA5}.kpi-v.am{color:#854F0B}
+.sec-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-secondary);margin:1.25rem 0 .6rem}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;font-size:11px;color:var(--color-text-secondary)}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;text-transform:uppercase;letter-spacing:.04em}
+tbody td{padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+.tot-row td{border-top:0.5px solid var(--color-border-secondary);font-weight:500;background:var(--color-background-secondary);border-bottom:none}
+.bar-wrap{display:flex;flex-direction:column;gap:2px}
+.bar-row{display:flex;align-items:center;gap:4px}
+.bar-track{flex:1;height:8px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px}
+.pill-dn{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#FCEBEB;color:#A32D2D}
+.pill-up{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#EAF3DE;color:#3B6D11}
+.pill-z{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.pill-sm{display:inline-block;font-size:9px;padding:1px 5px;border-radius:8px;background:#FAEEDA;color:#854F0B}
+.gadd-pos{font-weight:500;font-size:14px;color:#A32D2D;text-align:center}
+.gadd-zero{color:var(--color-text-secondary);text-align:center}
+.gadd-insuf{font-size:11px;font-style:italic;color:#854F0B;text-align:center}
+.nota{font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-radius:6px;padding:8px 12px;margin-top:1rem;line-height:1.6}
+.rank{font-size:10px;color:var(--color-text-secondary);width:18px;text-align:right;flex-shrink:0}
+</style>
+
+<div style="padding:1rem 0">
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-l">Alumnos AD2025</div><div class="kpi-v nt">5,094</div></div>
+  <div class="kpi"><div class="kpi-l">Alumnos AD2026</div><div class="kpi-v dn">1,056 (−79%)</div></div>
+  <div class="kpi"><div class="kpi-l">Delta a absorber</div><div class="kpi-v dn">−4,038</div></div>
+  <div class="kpi"><div class="kpi-l">Grupos adicionales (÷25)</div><div class="kpi-v am">+171</div></div>
+</div>
+
+<div style="font-size:11px;color:#854F0B;background:#FAEEDA;border-radius:6px;padding:7px 12px;margin-bottom:1.25rem;line-height:1.5">
+  3 alumnos del delta están en campus con delta &lt;10 (CDJ, SIN) — no alcanzan para abrir un grupo propio y requerirían consolidarse con otro campus.
+</div>
+
+<div class="sec-lbl">grupos adicionales por campus — ordenado de mayor a menor (grupos de 25 alumnos, mín. 10)</div>
+<div class="legend">
+  <span><i style="background:#534AB7"></i>Grupos AD2025</span>
+  <span><i style="background:#1D9E75"></i>Grupos AD2026 actuales</span>
+  <span><i style="background:#E24B4A"></i>Grupos adicionales necesarios</span>
+</div>
+
+<div id="tbl-wrap"></div>
+
+<div class="nota" id="nota-bottom"></div>
+</div>
+
+<script>
+const TAM=25, MIN=10;
+
+function calcGadd(delta){ return (delta>=MIN)?Math.ceil(delta/TAM):0; }
+function gCurr(a){ return a<=0?0:a<MIN?1:Math.ceil(a/TAM); }
+
+const rawRows=[
+  {c:'AGS',a25:37,a26:12},{c:'CCM',a25:409,a26:70},{c:'CDJ',a25:6,a26:4},
+  {c:'CEM',a25:201,a26:71},{c:'CHH',a25:71,a26:34},{c:'COB',a25:6,a26:16},
+  {c:'CSF',a25:327,a26:40},{c:'GDA',a25:617,a26:61},{c:'HER',a25:65,a26:26},
+  {c:'HGO',a25:90,a26:24},{c:'LAG',a25:154,a26:28},{c:'LEO',a25:88,a26:24},
+  {c:'MOR',a25:43,a26:2},{c:'MRL',a25:5,a26:12},{c:'MTY',a25:1902,a26:399},
+  {c:'PUE',a25:238,a26:75},{c:'QRO',a25:416,a26:54},{c:'SAL',a25:99,a26:30},
+  {c:'SIN',a25:17,a26:16},{c:'SLP',a25:51,a26:14},{c:'TAM',a25:60,a26:14},
+  {c:'TOL',a25:192,a26:30}
+];
+
+// Enrich and sort
+const rows = rawRows.map(r=>{
+  const delta=r.a25-r.a26;
+  const gadd=calcGadd(delta);
+  const g25=gCurr(r.a25), g26=gCurr(r.a26);
+  const insuf=delta>0&&delta<MIN;
+  return {...r,delta,gadd,g25,g26,insuf};
+}).sort((a,b)=>{
+  // Primary: gadd desc; secondary: delta desc
+  if(b.gadd!==a.gadd) return b.gadd-a.gadd;
+  return b.delta-a.delta;
+});
+
+const maxG=Math.max(...rows.map(r=>r.g25),1);
+const totA25=rows.reduce((s,r)=>s+r.a25,0);
+const totA26=rows.reduce((s,r)=>s+r.a26,0);
+const totGadd=rows.reduce((s,r)=>s+r.gadd,0);
+const totG25=rows.reduce((s,r)=>s+r.g25,0);
+const totG26=rows.reduce((s,r)=>s+r.g26,0);
+
+let html=`<table>
+<thead>
+  <tr>
+    <th style="width:4%">#</th>
+    <th style="width:8%">Campus</th>
+    <th style="width:7%;text-align:right">Alum. 2025</th>
+    <th style="width:7%;text-align:right">Alum. 2026</th>
+    <th style="width:8%;text-align:right">Delta</th>
+    <th style="width:5%;text-align:right">Grp. 2025</th>
+    <th style="width:5%;text-align:right">Grp. 2026</th>
+    <th style="width:28%">Grupos (barras)</th>
+    <th style="width:10%;text-align:center">Grp. adicionales</th>
+    <th style="width:13%;text-align:right">Obs.</th>
+  </tr>
+</thead><tbody>`;
+
+let rank=1;
+rows.forEach(r=>{
+  const wG25=Math.round(r.g25/maxG*100);
+  const wG26=Math.round(r.g26/maxG*100);
+  const wGadd=Math.round(r.gadd/maxG*100);
+
+  let obs='';
+  if(r.delta<0) obs=`<span style="font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#EAF3DE;color:#3B6D11">+${Math.abs(r.delta)} sobre AD2025</span>`;
+  else if(r.insuf) obs=`<span class="pill-sm">delta &lt;${MIN}</span>`;
+  else if(r.delta===0) obs=`<span class="pill-z">sin cambio</span>`;
+
+  let gaddCell='';
+  if(r.gadd>0) gaddCell=`<div class="gadd-pos">+${r.gadd}</div>`;
+  else if(r.insuf) gaddCell=`<div class="gadd-insuf">*</div>`;
+  else gaddCell=`<div class="gadd-zero">—</div>`;
+
+  const rankStr=r.gadd>0?`<span style="font-size:11px;font-weight:500;color:var(--color-text-secondary)">${rank++}</span>`:'';
+
+  html+=`<tr style="${r.insuf||r.delta<=0?'opacity:.65':''}">
+    <td style="text-align:right">${rankStr}</td>
+    <td style="font-family:var(--font-mono);font-size:11px;font-weight:500">${r.c}</td>
+    <td style="text-align:right">${r.a25}</td>
+    <td style="text-align:right">${r.a26>0?r.a26:(r.a25>0?'0':'—')}</td>
+    <td style="text-align:right">${r.delta>0?`<span class="pill-dn">−${r.delta}</span>`:r.delta<0?`<span style="font-size:10px;font-weight:500;padding:1px 6px;border-radius:8px;background:#EAF3DE;color:#3B6D11">+${Math.abs(r.delta)}</span>`:`<span class="pill-z">0</span>`}</td>
+    <td style="text-align:right;color:var(--color-text-secondary);font-size:11px">${r.g25||'—'}</td>
+    <td style="text-align:right;color:var(--color-text-secondary);font-size:11px">${r.g26||'—'}</td>
+    <td>
+      <div class="bar-wrap">
+        <div class="bar-row">
+          <span class="rank">${r.g25}g</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${wG25}%;background:#534AB7"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="rank">${r.g26}g</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${wG26}%;background:#1D9E75"></div></div>
+        </div>
+        ${r.gadd>0?`<div class="bar-row">
+          <span class="rank" style="color:#A32D2D">+${r.gadd}g</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${wGadd}%;background:#E24B4A"></div></div>
+        </div>`:''}
+      </div>
+    </td>
+    <td>${gaddCell}</td>
+    <td style="text-align:right">${obs}</td>
+  </tr>`;
+});
+
+html+=`<tr class="tot-row">
+  <td></td>
+  <td>Total</td>
+  <td style="text-align:right">${totA25.toLocaleString()}</td>
+  <td style="text-align:right">${totA26.toLocaleString()}</td>
+  <td style="text-align:right"><span class="pill-dn">−${(totA25-totA26).toLocaleString()}</span></td>
+  <td style="text-align:right;font-size:11px">${totG25}</td>
+  <td style="text-align:right;font-size:11px">${totG26}</td>
+  <td></td>
+  <td><div class="gadd-pos" style="font-size:15px">+${totGadd}</div></td>
+  <td></td>
+</tr>`;
+
+html+='</tbody></table>';
+document.getElementById('tbl-wrap').innerHTML=html;
+
+// Nota automática
+const top3=rows.filter(r=>r.gadd>0).slice(0,3);
+const top3str=top3.map(r=>`${r.c} (+${r.gadd} grupos)`).join(', ');
+const sinGrupo=rows.filter(r=>r.delta>0&&r.gadd===0);
+document.getElementById('nota-bottom').innerHTML=
+  `Los tres campus con mayor necesidad son ${top3str}, que juntos concentran <strong>${top3.reduce((s,r)=>s+r.gadd,0)} de los ${totGadd} grupos adicionales</strong> (${Math.round(top3.reduce((s,r)=>s+r.gadd,0)/totGadd*100)}% del total). `+
+  (sinGrupo.length>0?`${sinGrupo.map(r=>r.c).join(', ')} tienen delta positivo pero menor a ${MIN} alumnos — requieren consolidación con otro campus para poder abrir grupo.`:'');
+</script>
